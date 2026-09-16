@@ -1,0 +1,37 @@
+import pandas as pd
+
+def simulacionZp(p):
+    b = [1, 0, 0, 0]
+    unos = 0
+    resultados = []
+
+    lista = list(range(0, p))
+    for i in range(0, p):
+        for j in range(0, p):
+            for k in range(0, p):
+                for l in range(0, p):
+                    for n in range(0, p):
+                        for o in range(0, p):
+                            for q in range(0, p):
+                                for r in range(0, p):
+                                    x = [lista[i], lista[j], lista[k], lista[l]]
+                                    y = [lista[n], lista[o], lista[q], lista[r]]
+
+                                    z = [
+                                        (x[0]*y[0] - x[1]*y[1] - x[2]*y[2] - x[3]*y[3]) % p,
+                                        (x[0]*y[1] + x[1]*y[0] + x[2]*y[3] - x[3]*y[2]) % p,
+                                        (x[0]*y[2] + x[2]*y[0] + x[3]*y[1] - x[1]*y[3]) % p,
+                                        (x[0]*y[3] + x[3]*y[0] + x[1]*y[2] - x[2]*y[1]) % p
+                                    ]
+
+                                    if z == b:
+                                        unos += 1
+                                        resultados.append(x + y + z)  # concatena x, y, z
+
+    # Exportar a Excel
+    columnas = ['x0', 'x1', 'x2', 'x3', 'y0', 'y1', 'y2', 'y3', 'z0', 'z1', 'z2', 'z3']
+    df_resultados = pd.DataFrame(resultados, columns=columnas)
+    ruta = fr"resultados_invertiblesZp_{p}.xlsx"
+    df_resultados.to_excel(ruta, index=False)
+
+    print("Inversos:", unos)

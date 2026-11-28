@@ -1,71 +1,68 @@
 # Álgebra de cuaterniones sobre cuerpos finitos
 
-Repositorio dedicado al estudio algebraico y computacional de los
-**cuaterniones con coeficientes en los cuerpos finitos**
-(`\mathbb{Z}`{=tex}\_p), donde (p) es un número primo. Contiene
-programas en Python para explorar el producto de cuaterniones,
-identificar elementos invertibles y examinar computacionalmente
-propiedades relacionadas con la estructura algebraica, además de una
-suite de pruebas automatizadas.
+Repositorio académico dedicado al estudio algebraico y computacional de los **cuaterniones con coeficientes en los cuerpos finitos** $\mathbb{Z}_p$, donde $p$ es un número primo. Contiene algoritmos implementados en Python para calcular productos, explorar elementos invertibles y examinar propiedades de la estructura algebraica, así como una suite de pruebas automatizadas.
 
 ## Contenido
 
--   [Descripción del proyecto](#descripción-del-proyecto)
--   [Fundamento matemático](#fundamento-matemático)
--   [Organización del repositorio](#organización-del-repositorio)
--   [Descripción de los programas](#descripción-de-los-programas)
--   [Pruebas automatizadas](#pruebas-automatizadas)
--   [Requisitos](#requisitos)
--   [Instalación y ejecución](#instalación-y-ejecución)
--   [Resultados](#resultados)
--   [Alcance y consideraciones](#alcance-y-consideraciones)
+- [Descripción del proyecto](#descripción-del-proyecto)
+- [Fundamento matemático](#fundamento-matemático)
+- [Organización del repositorio](#organización-del-repositorio)
+- [Descripción de las carpetas](#descripción-de-las-carpetas)
+- [Pruebas automatizadas](#pruebas-automatizadas)
+- [Requisitos](#requisitos)
+- [Instalación y ejecución](#instalación-y-ejecución)
+- [Resultados](#resultados)
+- [Alcance y consideraciones](#alcance-y-consideraciones)
 
 ## Descripción del proyecto
 
-El proyecto estudia operaciones y propiedades de los cuaterniones sobre
-(`\mathbb{Z}`{=tex}\_p) mediante algoritmos implementados en Python. Se
-consideran cuaterniones representados por cuatro componentes y se
-realizan recorridos computacionales sobre los elementos del conjunto
-para estudiar su comportamiento bajo el producto de Hamilton.
+El proyecto estudia operaciones y propiedades de los cuaterniones sobre $\mathbb{Z}_p$ mediante algoritmos desarrollados en Python. Los cuaterniones se representan mediante cuatro componentes y se realizan recorridos computacionales sobre los elementos del conjunto para examinar su comportamiento bajo el producto de Hamilton.
 
-El repositorio se organiza en cuatro componentes:
+El repositorio se organiza en cuatro carpetas:
 
-1.  **Producto:** calcula el producto de pares de cuaterniones.
-2.  **Invertibles:** busca pares de cuaterniones cuyo producto sea la
-    identidad y almacena los resultados.
-3.  **Estructura:** realiza una exploración computacional orientada a
-    determinar si los elementos no nulos admiten inversos, como parte
-    del análisis de la posible estructura de anillo de división.
-4.  **Test automatizado:** implementa pruebas unitarias para verificar
-    propiedades algebraicas seleccionadas.
+1. **Producto:** calcula el producto de pares de cuaterniones.
+2. **Invertibles:** busca pares de cuaterniones cuyo producto es la identidad y almacena los resultados.
+3. **Estructura:** explora computacionalmente cuántos elementos admiten un elemento que los multiplique para obtener la identidad.
+4. **Test_Automatizado:** contiene pruebas unitarias para verificar propiedades algebraicas seleccionadas.
 
 ## Fundamento matemático
 
 Un cuaternión se representa como
 
-\[ q=a+bi+cj+dk, \]
+$$
+q=a+bi+cj+dk,
+$$
 
-donde (a,b,c,d`\in`{=tex}`\mathbb{Z}`{=tex}\_p), y las unidades
-imaginarias satisfacen las relaciones de Hamilton:
+donde $a,b,c,d\in\mathbb{Z}_p$. Sus unidades imaginarias satisfacen las relaciones de Hamilton:
 
-\[
-i^2=j^2=k\^2=-1,`\qquad `{=tex}ij=k,`\quad `{=tex}jk=i,`\quad `{=tex}ki=j,
-\]
+$$
+i^2=j^2=k^2=-1,
+$$
 
-\[ ji=-k,`\quad `{=tex}kj=-i,`\quad `{=tex}ik=-j. \]
+$$
+ij=k,\qquad jk=i,\qquad ki=j,
+$$
 
-Los elementos se representan computacionalmente mediante cuádruplas:
+$$
+ji=-k,\qquad kj=-i,\qquad ik=-j.
+$$
 
-\[ q=(a,b,c,d)`\in`{=tex}`\mathbb{Z}`{=tex}\_p\^4. \]
+En los programas, cada cuaternión se representa mediante una cuádrupla:
+
+$$
+q=(a,b,c,d)\in\mathbb{Z}_p^4.
+$$
 
 Para dos cuaterniones
 
-\[ q_1=(a_1,b_1,c_1,d_1),`\qquad`{=tex} q_2=(a_2,b_2,c_2,d_2), \]
+$$
+q_1=(a_1,b_1,c_1,d_1),\qquad
+q_2=(a_2,b_2,c_2,d_2),
+$$
 
-el producto de Hamilton, reducido módulo (p), es
+el producto de Hamilton, reducido módulo $p$, se calcula como
 
-\[
-```{=tex}
+$$
 \begin{aligned}
 q_1q_2=\big(&
 a_1a_2-b_1b_2-c_1c_2-d_1d_2,\\
@@ -74,49 +71,66 @@ a_1a_2-b_1b_2-c_1c_2-d_1d_2,\\
 & a_1d_2+b_1c_2-c_1b_2+d_1a_2
 \big)\pmod p.
 \end{aligned}
-```
-\]
+$$
 
 El elemento identidad multiplicativa es
 
-\[ e=(1,0,0,0). \]
+$$
+e=(1,0,0,0).
+$$
 
-La operación no es conmutativa en general: por ejemplo, (ij=k), mientras
-que (ji=-k).
+El producto no es conmutativo en general. Por ejemplo,
+
+$$
+ij=k,\qquad ji=-k.
+$$
 
 ### Norma e invertibilidad
 
-Para (q=(a,b,c,d)), el programa de pruebas utiliza la norma reducida
+Para $q=(a,b,c,d)$, la norma reducida utilizada en la suite de pruebas es
 
-\[ N(q)=a^2+b^2+c^2+d^2`\pmod `{=tex}p. \]
+$$
+N(q)=a^2+b^2+c^2+d^2\pmod p.
+$$
 
-Cuando (N(q)`\neq 0`{=tex}) en (`\mathbb{Z}`{=tex}\_p), se puede
-calcular el inverso multiplicativo mediante
+Cuando $N(q)\neq 0$ en $\mathbb{Z}_p$, la implementación calcula el inverso multiplicativo mediante
 
-\[ q^{-1}=`\overline `{=tex}q,N(q)^{-1}, \]
+$$
+q^{-1}=\overline{q}\,N(q)^{-1},
+$$
 
-donde
+donde el conjugado está dado por
 
-\[ `\overline `{=tex}q=(a,-b,-c,-d) \]
+$$
+\overline{q}=(a,-b,-c,-d),
+$$
 
-es el conjugado y (N(q)\^{-1}) es el inverso modular de la norma. En la
-implementación, si la norma es cero, la función de inversión devuelve
-`None`.
+y $N(q)^{-1}$ representa el inverso multiplicativo de la norma módulo $p$. En el código de pruebas, si la norma es congruente con cero módulo $p$, la función `quat_inv` devuelve `None`.
 
-El conjunto de cuaterniones tiene (p\^4) elementos. Para los primos
-impares considerados en las pruebas, el conteo teórico de elementos
-invertibles utilizado como referencia es
+El conjunto de cuádruplas tiene $p^4$ elementos. Para los primos impares considerados en la suite, el conteo teórico de elementos invertibles que se utiliza como referencia es
 
-\[
-`\left`{=tex}\|H(`\mathbb{Z}`{=tex}\_p)\^`\times`{=tex}`\right`{=tex}\|
-=(p^2-1)(p^2-p) =p^4-p^3-p\^2+p. \]
+$$
+\left|H(\mathbb{Z}_p)^\times\right|
+=(p^2-1)(p^2-p)
+=p^4-p^3-p^2+p.
+$$
 
 ## Organización del repositorio
 
 La estructura general del repositorio es la siguiente:
 
-``` text
+```text
 .
+├── Estructura/
+│   ├── AlgoritmoEstructura.docx
+│   ├── ProgramaEstructura.txt
+│   ├── esctructura.py
+│   ├── ResultadosEstructuraZp_3.txt
+│   ├── ResultadosEstructuraZp_5.txt
+│   ├── ResultadosEstructuraZp_7.txt
+│   ├── ResultadosEstructuraZp_11.txt
+│   └── ResultadosEstructuraZp_13.txt
+│
 ├── Invertibles/
 │   ├── AlgoritmoInvertibles.docx
 │   ├── ProgramaInvertibles
@@ -135,232 +149,194 @@ La estructura general del repositorio es la siguiente:
 │   ├── ResultadosProductoZp_2.txt
 │   └── ResultadosProductoZp_3.txt
 │
-├── Estructura/
-│   ├── AlgoritmoEstructura.docx
-│   ├── ProgramaEstructura.txt
-│   ├── esctructura.py
-│   ├── ResultadosEstructuraZp_3.txt
-│   ├── ResultadosEstructuraZp_5.txt
-│   ├── ResultadosEstructuraZp_7.txt
-│   ├── ResultadosEstructuraZp_11.txt
-│   └── ResultadosEstructuraZp_13.txt
+├── Test_Automatizado/
+│   ├── test_cuaterniones.py
+│   └── test_cuaterniones.pdf
 │
-└── Test_Automatizado/
-    ├── test_cuaterniones.py
-    └── test_cuaterniones.pdf
+└── README.md
 ```
 
-**Nota:** el árbol anterior recoge los nombres de archivos comunicados
-para el repositorio. Conviene comprobar que coincidan exactamente con
-los nombres y las mayúsculas/minúsculas de GitHub. En particular, se
-conserva `esctructura.py` tal como fue informado; si el archivo se
-renombra, debe actualizarse también este árbol.
+> **Nota:** el árbol utiliza los nombres de archivos informados para el repositorio. GitHub distingue entre mayúsculas y minúsculas en los nombres. Se conserva `esctructura.py` tal como fue escrito en la lista de archivos; si el archivo tiene otro nombre en GitHub, actualiza esta referencia. Verifica también si `ProgramaInvertibles` es un archivo adicional y cuál es su extensión.
 
-Los documentos `.docx` contienen la descripción de los algoritmos. Los
-archivos `.txt` presentan versiones de los programas o resultados de
-ejecución, mientras que los archivos `.py` corresponden a los scripts
-ejecutables. Los resultados de invertibilidad se exportan a Excel.
+Los documentos `.docx` describen los algoritmos. Los archivos `.txt` contienen versiones de los programas o resultados de ejecución. Los archivos `.py` son los scripts de Python y los archivos `.xlsx` almacenan resultados tabulados.
 
-## Descripción de los programas
+## Descripción de las carpetas
 
-### 1. Carpeta `Producto`
+### 1. `Producto`
 
-**Propósito:** calcular el producto de dos cuaterniones para todos los
-pares de elementos generados a partir de los coeficientes de
-(`\mathbb{Z}`{=tex}\_p).
+**Propósito:** calcular el producto de dos cuaterniones para los pares generados a partir de los coeficientes de $\mathbb{Z}_p$.
 
 El programa:
 
--   Construye dos cuaterniones (x) e (y), recorriendo sus cuatro
-    componentes en ({0,1,`\ldots`{=tex},p-1}).
--   Calcula el producto de Hamilton (z=x`\cdot `{=tex}y).
--   Reduce cada componente del resultado módulo (p).
--   Imprime los factores y el producto obtenido.
+- Construye dos cuaterniones $x$ e $y$, recorriendo sus cuatro componentes en $\{0,1,\ldots,p-1\}$.
+- Calcula el producto de Hamilton $z=x\cdot y$.
+- Reduce cada componente del resultado módulo $p$.
+- Imprime los factores y el producto obtenido.
 
-Los resultados disponibles corresponden a los valores de (p) indicados
-en los archivos de la carpeta.
+Los archivos de resultados permiten consultar las salidas generadas para los valores de $p$ incluidos en la carpeta.
 
-### 2. Carpeta `Invertibles`
+### 2. `Invertibles`
 
-**Propósito:** identificar los pares de cuaterniones cuyo producto es la
-identidad multiplicativa.
+**Propósito:** identificar pares de cuaterniones cuyo producto es la identidad multiplicativa.
 
-El programa recorre los pares ordenados
-(x,y`\in`{=tex}`\mathbb{Z}`{=tex}\_p\^4), calcula (z=x`\cdot `{=tex}y) y
-selecciona aquellos casos en los que
+El programa recorre pares ordenados $x,y\in\mathbb{Z}_p^4$, calcula $z=x\cdot y$ y selecciona los casos en los que
 
-\[ x`\cdot `{=tex}y=(1,0,0,0). \]
+$$
+x\cdot y=(1,0,0,0).
+$$
 
-Los pares encontrados se organizan en una tabla con las componentes de
-(x), (y) y (z). El programa utiliza `pandas` para exportar los
-resultados a archivos Excel (`.xlsx`).
+Los pares encontrados se organizan en una tabla con las componentes de $x$, $y$ y $z$. El script utiliza `pandas` para exportar los resultados a archivos de Excel (`.xlsx`).
 
-Esta búsqueda permite examinar computacionalmente las relaciones de
-inversibilidad. La comprobación bilateral de que un elemento es
-invertible se aborda explícitamente en la suite de pruebas
-automatizadas.
+Esta búsqueda permite explorar computacionalmente las relaciones de invertibilidad. La verificación explícita de la existencia de inversos por ambos lados también se incluye en la suite de pruebas automatizadas.
 
-### 3. Carpeta `Estructura`
+### 3. `Estructura`
 
-**Propósito:** explorar computacionalmente si los elementos no nulos
-poseen inversos multiplicativos, como criterio relacionado con la
-posibilidad de que la estructura sea un anillo de división.
+**Propósito:** explorar computacionalmente cuántos elementos admiten un elemento que, al multiplicarlos, produce la identidad.
 
-El programa recorre los pares de cuaterniones, calcula sus productos y
-cuenta, para cada elemento (x), si encuentra al menos un elemento (y)
-tal que
+Para cada elemento $x$, el programa recorre posibles elementos $y$ y calcula el producto. Identifica los casos en los que
 
-\[ x`\cdot `{=tex}y=(1,0,0,0). \]
+$$
+x\cdot y=(1,0,0,0).
+$$
 
-Al finalizar, presenta el conteo obtenido (`Dav`) y lo compara con
-(p\^4). La interpretación de esta exploración debe considerar que un
-anillo de división exige que todo elemento no nulo tenga inverso
-multiplicativo; para establecer la propiedad de manera rigurosa también
-deben verificarse los axiomas de anillo y la existencia de inversos
-bilaterales.
+El algoritmo cuenta los elementos para los cuales encuentra al menos un candidato y presenta el conteo `Dav`, junto con el valor $p^4$. La comparación se utiliza para examinar si todos los elementos no nulos cuentan con un candidato a inverso por el lado evaluado por el programa.
 
-### 4. Carpeta `Test_Automatizado`
+Esta exploración computacional es un criterio de análisis, pero por sí sola no demuestra que la estructura sea un anillo de división. Para establecer esa conclusión se requiere verificar los axiomas de anillo y la existencia de inversos multiplicativos bilaterales para todos los elementos no nulos.
 
-**Propósito:** validar mediante pruebas unitarias propiedades
-algebraicas de los cuaterniones sobre (`\mathbb{Z}`{=tex}\_p).
+### 4. `Test_Automatizado`
 
-La documentación `test_cuaterniones.pdf` describe una suite implementada
-con `pytest`. Las pruebas se organizan alrededor de seis propiedades:
+**Propósito:** validar mediante pruebas unitarias propiedades algebraicas de los cuaterniones sobre $\mathbb{Z}_p$.
 
-1.  **Identidad multiplicativa:** comprueba que
-    (e`\cdot `{=tex}q=q`\cdot `{=tex}e=q).
-2.  **Cuadrados de las unidades imaginarias:** verifica que
-    (i^2=j^2=k\^2=-1`\pmod `{=tex}p).
-3.  **No conmutatividad:** comprueba las relaciones de Hamilton,
-    incluyendo (ij=k) y (ji=-k).
-4.  **Asociatividad del producto:** verifica que (x(qh)=(xq)h).
-5.  **Distributividad por izquierda y derecha:** comprueba \[
-    x(q+h)=xq+xh,`\qquad `{=tex}(q+h)x=qx+hx. \]
-6.  **Invertibilidad bilateral y conteo de unidades:** comprueba
-    (qu=e=uq) y compara el número de unidades con \[ p^4-p^3-p\^2+p. \]
+El documento `test_cuaterniones.pdf` describe una suite implementada con `pytest`. Las pruebas se organizan en seis bloques:
 
-La estrategia descrita combina recorridos exhaustivos y muestreo
-determinista:
+1. **Identidad multiplicativa:** comprueba que $e\cdot q=q\cdot e=q$.
+2. **Cuadrados de las unidades imaginarias:** verifica que $i^2=j^2=k^2=-1\pmod p$.
+3. **No conmutatividad:** comprueba las relaciones de Hamilton, incluyendo $ij=k$ y $ji=-k$.
+4. **Asociatividad del producto:** verifica que $x\cdot(q\cdot h)=(x\cdot q)\cdot h$.
+5. **Distributividad por izquierda y derecha:** comprueba las dos igualdades
+   $$
+   x\cdot(q+h)=x\cdot q+x\cdot h,
+   $$
+   $$
+   (q+h)\cdot x=q\cdot x+h\cdot x.
+   $$
+6. **Invertibilidad bilateral y conteo de unidades:** verifica que $q\cdot u=e=u\cdot q$ y compara el número de elementos invertibles con
+   $$
+   p^4-p^3-p^2+p.
+   $$
 
--   Para algunas propiedades se recorren todos los elementos de
-    (`\mathbb{Z}`{=tex}\_p\^4).
--   Para (p=3), la asociatividad y la distributividad se verifican
-    exhaustivamente sobre las ternas.
--   Para primos mayores, se utilizan muestras deterministas de ternas
-    para limitar el costo computacional.
--   Se emplean semillas fijas para que las muestras sean reproducibles.
+La estrategia descrita en el documento combina recorridos exhaustivos y muestreo determinista:
 
-El PDF contiene la explicación de las funciones, las propiedades
-verificadas, los primos utilizados y el código de la suite.
+- Para algunas propiedades se recorren todos los elementos de $\mathbb{Z}_p^4$.
+- Para $p=3$, la asociatividad y la distributividad se verifican exhaustivamente sobre las ternas.
+- Para primos mayores, se utilizan muestras deterministas de ternas para limitar el costo computacional.
+- Se emplean semillas fijas para que las muestras sean reproducibles.
+
+El PDF documenta las funciones implementadas, las propiedades verificadas, los primos utilizados y el código de la suite.
 
 ## Requisitos
 
--   Python 3.10 o superior para utilizar la sintaxis de anotaciones de
-    tipos presente en la suite documentada.
--   `pandas` para la exportación de resultados a Excel en el programa de
-    invertibilidad.
--   `openpyxl` como motor de escritura de archivos `.xlsx` utilizado
-    habitualmente por `pandas`.
--   `pytest` para ejecutar las pruebas automatizadas.
+- Python 3.10 o superior para la sintaxis de anotaciones de tipos utilizada en la suite documentada.
+- `pandas` para exportar los resultados de invertibilidad a Excel.
+- `openpyxl` como motor de escritura de archivos `.xlsx`.
+- `pytest` para ejecutar las pruebas automatizadas.
 
-Instalación de dependencias:
+Instala las dependencias con:
 
-``` bash
+```bash
 python -m pip install pandas openpyxl pytest
 ```
 
-Los programas de producto y estructura utilizan funciones de la
-biblioteca estándar de Python y no requieren `pandas` para las
-operaciones que se muestran en los archivos de programa suministrados.
+Los programas de producto y estructura utilizan las operaciones básicas de Python y no requieren `pandas` para los cálculos descritos.
 
 ## Instalación y ejecución
 
 Clona el repositorio:
 
-``` bash
+```bash
 git clone URL_DEL_REPOSITORIO
 ```
 
-Entra en la carpeta del proyecto:
+Ingresa a la carpeta del repositorio:
 
-``` bash
+```bash
 cd NOMBRE_DEL_REPOSITORIO
 ```
 
 Ejecuta cada programa desde su carpeta correspondiente. Por ejemplo:
 
-``` bash
+```bash
+cd Producto
 python producto.py
+```
+
+Para ejecutar el programa de invertibilidad:
+
+```bash
+cd Invertibles
 python invertibles.py
+```
+
+Para ejecutar el programa de estructura:
+
+```bash
+cd Estructura
 python esctructura.py
 ```
 
-**Importante:** en los programas compartidos, la función principal está
-definida como `simulacionZp(p)`. Si el archivo no contiene una llamada a
-esa función, debe invocarse desde el intérprete de Python o agregarse
-una llamada al final del script. Por ejemplo, para ejecutar un caso con
-(p=3):
+**Importante:** los programas compartidos definen la función `simulacionZp(p)`. Si el script no contiene una llamada a esa función, debe invocarse desde el intérprete de Python o agregarse una llamada al final del archivo. Por ejemplo, para ejecutar el caso $p=3$:
 
-``` python
+```python
 simulacionZp(3)
 ```
 
-Para ejecutar las pruebas automatizadas, desde la raíz del repositorio:
+Para ejecutar las pruebas automatizadas desde la raíz del repositorio:
 
-``` bash
+```bash
 python -m pytest -v Test_Automatizado/test_cuaterniones.py
 ```
 
-También se puede ejecutar el archivo directamente, si conserva el bloque
-de ejecución `if __name__ == "__main__":` documentado:
+Si el archivo conserva el bloque de ejecución directa `if __name__ == "__main__":` descrito en el PDF, también se puede ejecutar mediante:
 
-``` bash
+```bash
 python Test_Automatizado/test_cuaterniones.py
 ```
 
-Los resultados y tiempos de ejecución dependen del valor de (p). Los
-programas que recorren todos los pares de cuaterniones realizan (p\^8)
-combinaciones, por lo que el costo computacional crece rápidamente.
+Los programas que recorren todos los pares de cuaterniones realizan $p^8$ combinaciones. Por tanto, el costo computacional aumenta rápidamente a medida que crece $p$.
 
 ## Resultados
 
-El repositorio incluye resultados de las ejecuciones realizadas para
-distintos valores de (p):
+El repositorio incluye resultados de ejecuciones para distintos valores de $p$:
 
--   **Producto:** archivos de texto con productos de cuaterniones.
--   **Invertibles:** archivos Excel con los pares cuyo producto es la
-    identidad.
--   **Estructura:** archivos de texto con los conteos obtenidos en la
-    exploración de invertibilidad.
--   **Pruebas automatizadas:** documentación del procedimiento de
-    validación de las propiedades algebraicas.
+- **Producto:** archivos de texto con productos de cuaterniones.
+- **Invertibles:** archivos Excel con los pares cuyo producto es la identidad.
+- **Estructura:** archivos de texto con los conteos obtenidos en la exploración de invertibilidad.
+- **Pruebas automatizadas:** documentación del procedimiento de validación de propiedades algebraicas.
 
-Los archivos de resultados permiten consultar y contrastar las salidas
-de los algoritmos. Para reproducirlos, se debe ejecutar el programa
-correspondiente con el mismo valor de (p).
+Estos archivos permiten consultar y contrastar las salidas de los algoritmos. Para reproducir los resultados, ejecuta el programa correspondiente con el valor de $p$ indicado en el nombre del archivo.
 
 ## Alcance y consideraciones
 
-Este repositorio combina experimentación computacional y verificación
-automatizada para estudiar propiedades del álgebra de cuaterniones sobre
-cuerpos finitos.
+Este repositorio combina experimentación computacional y pruebas automatizadas para estudiar operaciones y propiedades de los cuaterniones sobre cuerpos finitos.
 
-Es importante tener presentes las siguientes consideraciones:
+Es importante considerar que:
 
--   Una simulación sobre un conjunto finito permite verificar los casos
-    efectivamente recorridos, pero no reemplaza por sí sola una
-    demostración teórica general.
--   Las pruebas exhaustivas cubren todos los elementos o combinaciones
-    indicados para los valores de (p) especificados.
--   Las pruebas basadas en muestreo determinista verifican las muestras
-    generadas, no todas las ternas posibles.
--   La búsqueda de pares con (xy=e) no debe confundirse, sin una
-    verificación adicional, con la comprobación de que (yx=e).
--   La conclusión sobre una estructura de anillo de división requiere
-    considerar conjuntamente los axiomas de anillo y la existencia de
-    inversos para todos los elementos no nulos.
+- Una simulación permite verificar los casos efectivamente recorridos, pero no reemplaza por sí sola una demostración matemática general.
+- Las pruebas exhaustivas cubren todos los elementos o combinaciones indicados para los valores de $p$ especificados.
+- Las pruebas basadas en muestreo determinista verifican las muestras generadas, no todas las ternas posibles.
+- Encontrar un elemento $y$ tal que $x\cdot y=e$ no debe confundirse, sin una verificación adicional, con comprobar que $y\cdot x=e$.
+- Para concluir que una estructura es un anillo de división se deben verificar los axiomas de anillo y la existencia de inversos bilaterales para todos los elementos no nulos.
 
 ## Autoría y referencias
+
+**Autoría:** completar con los nombres de las personas responsables del proyecto.
+
+**Referencias bibliográficas:** agregar los libros, artículos o materiales utilizados para fundamentar el álgebra de cuaterniones, los cuerpos finitos y las pruebas algebraicas.
+
+---
+
+Repositorio desarrollado con fines académicos y de experimentación computacional en álgebra abstracta.
+
 
 **Autoría:** completar con los nombres de las personas responsables del
 proyecto.

@@ -123,16 +123,16 @@ El documento `test_cuaterniones.pdf` describe una suite implementada con `pytest
 3. **No conmutatividad:** comprueba las relaciones de Hamilton, incluyendo $ij=k$ y $ji=-k$.
 4. **Asociatividad del producto:** verifica que $x\cdot(q\cdot h)=(x\cdot q)\cdot h$.
 5. **Distributividad por izquierda y derecha:** comprueba las dos igualdades
-   $$
+   $
    x\cdot(q+h)=x\cdot q+x\cdot h,
-   $$
-   $$
+   $
+   $
    (q+h)\cdot x=q\cdot x+h\cdot x.
-   $$
+   $
 6. **Invertibilidad bilateral y conteo de unidades:** verifica que $q\cdot u=e=u\cdot q$ y compara el número de elementos invertibles con
-   $$
+   $
    p^4-p^3-p^2+p.
-   $$
+   $
 
 La estrategia descrita en el documento combina recorridos exhaustivos y muestreo determinista:
 

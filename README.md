@@ -5,7 +5,6 @@ Repositorio académico dedicado al estudio algebraico y computacional de los **c
 ## Contenido
 
 - [Descripción del proyecto](#descripción-del-proyecto)
-- [Fundamento matemático](#fundamento-matemático)
 - [Organización del repositorio](#organización-del-repositorio)
 - [Descripción de las carpetas](#descripción-de-las-carpetas)
 - [Pruebas automatizadas](#pruebas-automatizadas)
@@ -24,96 +23,6 @@ El repositorio se organiza en cuatro carpetas:
 2. **Invertibles:** busca pares de cuaterniones cuyo producto es la identidad y almacena los resultados.
 3. **Estructura:** explora computacionalmente cuántos elementos admiten un elemento que los multiplique para obtener la identidad.
 4. **Test_Automatizado:** contiene pruebas unitarias para verificar propiedades algebraicas seleccionadas.
-
-## Fundamento matemático
-
-Un cuaternión se representa como
-
-$$
-q=a+bi+cj+dk,
-$$
-
-donde $a,b,c,d\in\mathbb{Z}_p$. Sus unidades imaginarias satisfacen las relaciones de Hamilton:
-
-$$
-i^2=j^2=k^2=-1,
-$$
-
-$$
-ij=k,\qquad jk=i,\qquad ki=j,
-$$
-
-$$
-ji=-k,\qquad kj=-i,\qquad ik=-j.
-$$
-
-En los programas, cada cuaternión se representa mediante una cuádrupla:
-
-$$
-q=(a,b,c,d)\in\mathbb{Z}_p^4.
-$$
-
-Para dos cuaterniones
-
-$$
-q_1=(a_1,b_1,c_1,d_1),\qquad
-q_2=(a_2,b_2,c_2,d_2),
-$$
-
-el producto de Hamilton, reducido módulo $p$, se calcula como
-
-$$
-\begin{aligned}
-q_1q_2=\big(&
-a_1a_2-b_1b_2-c_1c_2-d_1d_2,\\
-& a_1b_2+b_1a_2+c_1d_2-d_1c_2,\\
-& a_1c_2-b_1d_2+c_1a_2+d_1b_2,\\
-& a_1d_2+b_1c_2-c_1b_2+d_1a_2
-\big)\pmod p.
-\end{aligned}
-$$
-
-El elemento identidad multiplicativa es
-
-$$
-e=(1,0,0,0).
-$$
-
-El producto no es conmutativo en general. Por ejemplo,
-
-$$
-ij=k,\qquad ji=-k.
-$$
-
-### Norma e invertibilidad
-
-Para $q=(a,b,c,d)$, la norma reducida utilizada en la suite de pruebas es
-
-$$
-N(q)=a^2+b^2+c^2+d^2\pmod p.
-$$
-
-Cuando $N(q)\neq 0$ en $\mathbb{Z}_p$, la implementación calcula el inverso multiplicativo mediante
-
-$$
-q^{-1}=\overline{q}\,N(q)^{-1},
-$$
-
-donde el conjugado está dado por
-
-$$
-\overline{q}=(a,-b,-c,-d),
-$$
-
-y $N(q)^{-1}$ representa el inverso multiplicativo de la norma módulo $p$. En el código de pruebas, si la norma es congruente con cero módulo $p$, la función `quat_inv` devuelve `None`.
-
-El conjunto de cuádruplas tiene $p^4$ elementos. Para los primos impares considerados en la suite, el conteo teórico de elementos invertibles que se utiliza como referencia es
-
-$$
-\left|H(\mathbb{Z}_p)^\times\right|
-=(p^2-1)(p^2-p)
-=p^4-p^3-p^2+p.
-$$
 
 ## Organización del repositorio
 
@@ -326,16 +235,6 @@ Es importante considerar que:
 - Las pruebas basadas en muestreo determinista verifican las muestras generadas, no todas las ternas posibles.
 - Encontrar un elemento $y$ tal que $x\cdot y=e$ no debe confundirse, sin una verificación adicional, con comprobar que $y\cdot x=e$.
 - Para concluir que una estructura es un anillo de división se deben verificar los axiomas de anillo y la existencia de inversos bilaterales para todos los elementos no nulos.
-
-## Autoría y referencias
-
-**Autoría:** completar con los nombres de las personas responsables del proyecto.
-
-**Referencias bibliográficas:** agregar los libros, artículos o materiales utilizados para fundamentar el álgebra de cuaterniones, los cuerpos finitos y las pruebas algebraicas.
-
----
-
-Repositorio desarrollado con fines académicos y de experimentación computacional en álgebra abstracta.
 
 
 **Autoría:** completar con los nombres de las personas responsables del
